@@ -8,11 +8,8 @@ interface AboutProps {
   language: 'es' | 'en';
 }
 
-// === Config de descarga ===
-const DRIVE_FILE_ID = "1CGHGN_FyOz8REvS0tw8k0rL7Gkg2hoKr";
-const DRIVE_DIRECT_URL = `https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}`;
-// Si copias el PDF a /public (opcional)
-const LOCAL_FALLBACK_URL = "/CV - Brayan Steven León Martinez - Español.pdf";
+const RAW_NAME = 'CV - Brayan Steven León Martinez - Español.pdf';
+const CV_URL = `${import.meta.env.BASE_URL}docs/${encodeURIComponent(RAW_NAME)}`;
 
 export function About({ language }: AboutProps) {
   const content = {
@@ -106,9 +103,11 @@ export function About({ language }: AboutProps) {
 
   const handleDownloadCV = () => {
     const a = document.createElement('a');
-    a.href = '/Brayan_Leon_CV.pdf';
-    a.download = 'Brayan_Leon_CV.pdf';
+    a.href = CV_URL;
+    a.download = 'Brayan_Leon_CV.pdf'; // nombre sugerido en descarga
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
   };
 
   const colorSchemes = {
