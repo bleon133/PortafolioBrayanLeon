@@ -8,6 +8,12 @@ interface AboutProps {
   language: 'es' | 'en';
 }
 
+// === Config de descarga ===
+const DRIVE_FILE_ID = "1CGHGN_FyOz8REvS0tw8k0rL7Gkg2hoKr";
+const DRIVE_DIRECT_URL = `https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}`;
+// Si copias el PDF a /public (opcional)
+const LOCAL_FALLBACK_URL = "/Brayan_Leon_CV.pdf";
+
 export function About({ language }: AboutProps) {
   const content = {
     es: {
@@ -99,8 +105,10 @@ export function About({ language }: AboutProps) {
   };
 
   const handleDownloadCV = () => {
-    // Here you would implement the actual CV download
-    console.log('Downloading CV...');
+    const a = document.createElement('a');
+    a.href = '/Brayan_Leon_CV.pdf';
+    a.download = 'Brayan_Leon_CV.pdf';
+    a.click();
   };
 
   const colorSchemes = {
