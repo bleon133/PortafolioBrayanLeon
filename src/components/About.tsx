@@ -6,12 +6,10 @@ import { Download, Eye, Code, Award, Clock, Star, Users, Target } from "lucide-r
 
 interface AboutProps {
   language: 'es' | 'en';
+  totalProjects?: number;
 }
 
-const RAW_NAME = 'CV - Brayan Steven León Martinez - Español.pdf';
-const CV_URL = `${import.meta.env.BASE_URL}docs/${encodeURIComponent(RAW_NAME)}`;
-
-export function About({ language }: AboutProps) {
+export function About({ language, totalProjects = 7 }: AboutProps) {
   const content = {
     es: {
       title: "Sobre mí",
@@ -32,14 +30,14 @@ export function About({ language }: AboutProps) {
       },
       stats: {
         projects: {
-          number: "6",
+          number: totalProjects.toString(),
           title: "Proyectos totales",
           subtitle: "Desarrollo web, móvil y videojuegos",
           icon: Code,
           color: "blue"
         },
         certifications: {
-          number: "5",
+          number: "3",
           title: "Certificaciones",
           subtitle: "Habilidades profesionales",
           icon: Award,
@@ -73,14 +71,14 @@ export function About({ language }: AboutProps) {
       },
       stats: {
         projects: {
-          number: "6",
+          number: totalProjects.toString(),
           title: "Total projects",
           subtitle: "Web, mobile and game development",
           icon: Code,
           color: "blue"
         },
         certifications: {
-          number: "5", 
+          number: "3", 
           title: "Certifications",
           subtitle: "Professional skills",
           icon: Award,
@@ -101,13 +99,26 @@ export function About({ language }: AboutProps) {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToEducation = () => {
+    document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const getStatClickHandler = (statKey: string) => {
+    switch (statKey) {
+      case 'projects':
+        return scrollToProjects;
+      case 'certifications':
+      case 'experience':
+        return scrollToEducation;
+      default:
+        return undefined;
+    }
+  };
+
   const handleDownloadCV = () => {
-    const a = document.createElement('a');
-    a.href = CV_URL;
-    a.download = 'Brayan_Leon_CV.pdf'; // nombre sugerido en descarga
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    // Google Drive direct download link
+    const cvUrl = 'https://drive.google.com/uc?export=download&id=11R18BENsBVd9BtydEgckxNjzuKTk39hE';
+    window.open(cvUrl, '_blank');
   };
 
   const colorSchemes = {
@@ -135,7 +146,7 @@ export function About({ language }: AboutProps) {
   };
 
   return (
-    <section id="about" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-gray-900 text-white relative overflow-hidden scroll-mt-20">
+    <section id="about" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-background text-foreground relative overflow-hidden scroll-mt-20 transition-colors duration-300">
       {/* Enhanced Background Effects */}
       <div className="absolute inset-0">
         {/* Main floating orbs */}
@@ -275,7 +286,7 @@ export function About({ language }: AboutProps) {
                 >
                   <Badge
                     variant="secondary"
-                    className="bg-gray-800/80 text-gray-200 border-gray-600/50 hover:border-blue-400/50 hover:bg-blue-500/10 transition-all duration-300 cursor-default"
+                    className="bg-card/80 text-card-foreground border-border hover:border-blue-400/50 hover:bg-blue-500/10 transition-all duration-300 cursor-default"
                   >
                     {item}
                   </Badge>
@@ -295,7 +306,7 @@ export function About({ language }: AboutProps) {
               className="space-y-8"
             >
               {/* Description Card */}
-              <Card className="bg-gray-900/40 border-gray-700/50 backdrop-blur-sm relative overflow-hidden">
+              <Card className="bg-card/40 border-border backdrop-blur-sm relative overflow-hidden">
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5" />
                 
@@ -308,7 +319,7 @@ export function About({ language }: AboutProps) {
                       {language === 'es' ? 'Mi Historia' : 'My Story'}
                     </h3>
                   </div>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed">
                     {content[language].text}
                   </p>
                 </CardContent>
@@ -343,8 +354,9 @@ export function About({ language }: AboutProps) {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              {Object.values(content[language].stats).map((stat, index) => {
+              {Object.entries(content[language].stats).map(([statKey, stat], index) => {
                 const colors = colorSchemes[stat.color as keyof typeof colorSchemes];
+                const clickHandler = getStatClickHandler(statKey);
                 return (
                   <motion.div
                     key={stat.title}
@@ -354,11 +366,12 @@ export function About({ language }: AboutProps) {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.02, y: -5 }}
                     className="group"
+                    onClick={clickHandler}
                   >
-                    <Card className={`bg-gradient-to-br ${colors.bgGradient} border-0 backdrop-blur-sm relative overflow-hidden h-full`}>
+                    <Card className={`bg-gradient-to-br ${colors.bgGradient} border-0 backdrop-blur-sm relative overflow-hidden h-full ${clickHandler ? 'cursor-pointer' : ''}`}>
                       {/* Gradient border effect */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${colors.borderGradient} rounded-lg`}>
-                        <div className="absolute inset-[1px] bg-gray-900/80 rounded-lg" />
+                        <div className="absolute inset-[1px] bg-background rounded-lg" />
                       </div>
                       
                       <CardContent className="relative p-6">
@@ -373,7 +386,7 @@ export function About({ language }: AboutProps) {
                         <h3 className={`text-lg bg-gradient-to-br ${colors.gradient} bg-clip-text text-transparent mb-2`}>
                           {stat.title}
                         </h3>
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-muted-foreground text-sm">
                           {stat.subtitle}
                         </p>
                       </CardContent>
@@ -392,7 +405,7 @@ export function About({ language }: AboutProps) {
             viewport={{ once: true }}
             className="text-center"
           >
-            <Card className="bg-gray-900/30 border-gray-700/50 backdrop-blur-sm mx-auto max-w-2xl relative overflow-hidden">
+            <Card className="bg-card/30 border-border backdrop-blur-sm mx-auto max-w-2xl relative overflow-hidden">
               {/* Subtle gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5" />
               
@@ -404,7 +417,7 @@ export function About({ language }: AboutProps) {
                   </h4>
                   <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
                 </div>
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed">
                   {language === 'es' 
                     ? 'Siempre en busca de oportunidades para aplicar mis habilidades y contribuir a proyectos innovadores que generen impacto real.'
                     : 'Always looking for opportunities to apply my skills and contribute to innovative projects that generate real impact.'

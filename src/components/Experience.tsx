@@ -36,7 +36,7 @@ export function Experience({ language }: ExperienceProps) {
   };
 
   return (
-    <section id="experience" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-gray-900 text-white relative overflow-hidden">
+    <section id="experience" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-background text-foreground relative overflow-hidden transition-colors duration-300">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         {/* Gradient waves */}
@@ -135,7 +135,7 @@ export function Experience({ language }: ExperienceProps) {
               viewport={{ once: true }}
               className="mb-8"
             >
-              <Card className="bg-gray-800/50 border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 backdrop-blur-sm">
+              <Card className="bg-card/50 border-border hover:border-blue-500/50 transition-all duration-300 backdrop-blur-sm">
                 <CardHeader>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
@@ -150,9 +150,9 @@ export function Experience({ language }: ExperienceProps) {
                           <ExternalLink className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity duration-200" />
                         </a>
                       </div>
-                      <h4 className="text-xl text-gray-200">{exp.position}</h4>
+                      <h4 className="text-xl text-foreground">{exp.position}</h4>
                     </div>
-                    <div className="flex items-center text-gray-400">
+                    <div className="flex items-center text-muted-foreground">
                       <Calendar className="w-4 h-4 mr-2" />
                       <span>{exp.period}</span>
                     </div>
@@ -160,7 +160,7 @@ export function Experience({ language }: ExperienceProps) {
                 </CardHeader>
                 
                 <CardContent>
-                  <p className="text-gray-300 mb-4 leading-relaxed">
+                  <p className="text-muted-foreground mb-4 leading-relaxed">
                     {exp.achievements}
                   </p>
                   

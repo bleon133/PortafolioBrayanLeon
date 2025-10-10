@@ -76,7 +76,7 @@ export function Skills({ language }: SkillsProps) {
   ];
 
   return (
-    <section id="skills" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-gray-800 text-white relative overflow-hidden">
+    <section id="skills" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-card text-card-foreground relative overflow-hidden transition-colors duration-300">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         {/* Floating orbs */}
@@ -200,11 +200,11 @@ export function Skills({ language }: SkillsProps) {
               transition={{ duration: 0.4, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
-              className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-gray-700/50 text-center"
+              className="bg-background/40 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-border text-center"
             >
               <stat.icon className={`w-6 h-6 sm:w-8 sm:h-8 ${stat.color} mx-auto mb-2`} />
-              <div className="text-xl sm:text-2xl font-bold text-white">{stat.count}</div>
-              <div className="text-xs sm:text-sm text-gray-400 leading-tight px-1">{stat.label}</div>
+              <div className="text-xl sm:text-2xl font-bold text-foreground">{stat.count}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground leading-tight px-1">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -224,7 +224,7 @@ export function Skills({ language }: SkillsProps) {
               <Card className={`bg-gradient-to-br ${category.bgGradient} border-0 backdrop-blur-sm relative overflow-hidden h-full flex flex-col`}>
                 {/* Gradient border effect */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${category.borderGradient} rounded-lg`}>
-                  <div className="absolute inset-[1px] bg-gray-900/80 rounded-lg" />
+                  <div className="absolute inset-[1px] bg-card rounded-lg" />
                 </div>
                 
                 <CardContent className="relative p-6 flex flex-col h-full">
@@ -266,7 +266,7 @@ export function Skills({ language }: SkillsProps) {
                         <Badge
                           variant="secondary"
                           className={`
-                            bg-gray-800/80 text-gray-200 border-gray-600/50 
+                            bg-background/80 text-foreground border-border 
                             hover:border-current transition-all duration-300 cursor-pointer
                             group-hover:bg-gradient-to-r group-hover:${category.gradient} 
                             group-hover:text-white group-hover:shadow-lg 
@@ -306,8 +306,8 @@ export function Skills({ language }: SkillsProps) {
               </div>
               <p className="text-gray-300 leading-relaxed">
                 {language === 'es' 
-                  ? 'Desarrollo Full-Stack con especialización en Java/Spring Boot para backend, tecnologías móviles con Kotlin, y desarrollo de videojuegos con Unity/C#. Enfoque en arquitecturas escalables y metodologías ágiles.'
-                  : 'Full-Stack development specialized in Java/Spring Boot for backend, mobile technologies with Kotlin, and game development with Unity/C#. Focus on scalable architectures and agile methodologies.'
+                  ? 'Desarrollo Full-Stack con especialización en Java/Spring Boot para backend, tecnologías móviles con Kotlin, y desarrollo de videojuegos con Unity/C#. Enfoque en arquitecturas escalables.'
+                  : 'Full-Stack development specialized in Java/Spring Boot for backend, mobile technologies with Kotlin, and game development with Unity/C#. Focus on scalable architectures.'
                 }
               </p>
             </CardContent>

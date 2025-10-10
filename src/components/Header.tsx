@@ -1,14 +1,17 @@
 import { motion } from "motion/react";
 import { Button } from "./ui/button";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
+import logoImage from "figma:asset/fd5b6078c10dd8b9302e694d998028aaff28ff6d.png";
 
 interface HeaderProps {
   language: 'es' | 'en';
   onLanguageChange: (lang: 'es' | 'en') => void;
+  theme: 'dark' | 'light';
+  onThemeChange: (theme: 'dark' | 'light') => void;
 }
 
-export function Header({ language, onLanguageChange }: HeaderProps) {
+export function Header({ language, onLanguageChange, theme, onThemeChange }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -76,7 +79,7 @@ export function Header({ language, onLanguageChange }: HeaderProps) {
       <motion.header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           scrolled 
-            ? 'bg-gray-900/95 backdrop-blur-md border-b border-gray-800/50' 
+            ? 'bg-background/95 backdrop-blur-md border-b border-border' 
             : 'bg-transparent'
         }`}
         initial={{ y: -100 }}
@@ -91,9 +94,11 @@ export function Header({ language, onLanguageChange }: HeaderProps) {
               className="cursor-pointer"
               onClick={() => scrollToSection('#hero')}
             >
-              <span className="text-2xl bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                BL
-              </span>
+              <img 
+                src={logoImage} 
+                alt="Brayan León Logo" 
+                className="h-16 w-auto"
+              />
             </motion.div>
 
             {/* Desktop Navigation */}
@@ -102,7 +107,7 @@ export function Header({ language, onLanguageChange }: HeaderProps) {
                 <motion.button
                   key={item.key}
                   onClick={() => scrollToSection(item.href)}
-                  className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
+                  className="text-muted-foreground hover:text-blue-400 transition-colors duration-200"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -113,12 +118,22 @@ export function Header({ language, onLanguageChange }: HeaderProps) {
 
             {/* Controls */}
             <div className="flex items-center space-x-4">
+              {/* Theme Toggle */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onThemeChange(theme === 'dark' ? 'light' : 'dark')}
+                className="border-border text-foreground hover:text-blue-400 hover:border-blue-400 transition-colors"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </Button>
+
               {/* Language Toggle */}
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => onLanguageChange(language === 'es' ? 'en' : 'es')}
-                className="border-gray-700 text-gray-300 hover:text-blue-400 hover:border-blue-400"
+                className="border-border text-foreground hover:text-blue-400 hover:border-blue-400 transition-colors"
               >
                 <Globe className="w-4 h-4 mr-2" />
                 {language.toUpperCase()}
@@ -129,7 +144,7 @@ export function Header({ language, onLanguageChange }: HeaderProps) {
                 variant="outline"
                 size="sm"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden border-gray-700 text-gray-300"
+                className="lg:hidden border-border text-foreground"
               >
                 {isMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               </Button>
@@ -156,11 +171,11 @@ export function Header({ language, onLanguageChange }: HeaderProps) {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed top-0 right-0 h-full w-80 bg-gray-900/98 backdrop-blur-md border-l border-gray-800/50 z-50 lg:hidden"
+            className="fixed top-0 right-0 h-full w-80 bg-background/98 backdrop-blur-md border-l border-border z-50 lg:hidden"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-gray-800/50">
+              <div className="flex items-center justify-between p-6 border-b border-border">
                 <span className="text-xl bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                   {content[language].menu.title}
                 </span>
@@ -168,7 +183,7 @@ export function Header({ language, onLanguageChange }: HeaderProps) {
                   variant="outline"
                   size="sm"
                   onClick={() => setIsMenuOpen(false)}
-                  className="border-gray-700 text-gray-300 hover:text-blue-400"
+                  className="border-border text-foreground hover:text-blue-400"
                 >
                   <X className="w-4 h-4" />
                 </Button>
@@ -184,7 +199,7 @@ export function Header({ language, onLanguageChange }: HeaderProps) {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
                       onClick={() => scrollToSection(item.href)}
-                      className="text-left text-gray-300 hover:text-blue-400 transition-all duration-200 py-3 px-4 rounded-lg hover:bg-gray-800/50 border border-transparent hover:border-blue-500/30"
+                      className="text-left text-muted-foreground hover:text-blue-400 transition-all duration-200 py-3 px-4 rounded-lg hover:bg-muted border border-transparent hover:border-blue-500/30"
                     >
                       {content[language].nav[item.key as keyof typeof content[typeof language]['nav']]}
                     </motion.button>
@@ -193,14 +208,26 @@ export function Header({ language, onLanguageChange }: HeaderProps) {
               </div>
               
               {/* Footer Controls */}
-              <div className="p-6 border-t border-gray-800/50">
+              <div className="p-6 border-t border-border space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-400">{content[language].menu.language}</span>
+                  <span className="text-sm text-muted-foreground">{language === 'es' ? 'Tema' : 'Theme'}</span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onThemeChange(theme === 'dark' ? 'light' : 'dark')}
+                    className="border-border text-foreground hover:text-blue-400 hover:border-blue-400"
+                  >
+                    {theme === 'dark' ? <Sun className="w-4 h-4 mr-2" /> : <Moon className="w-4 h-4 mr-2" />}
+                    {theme === 'dark' ? (language === 'es' ? 'Claro' : 'Light') : (language === 'es' ? 'Oscuro' : 'Dark')}
+                  </Button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">{content[language].menu.language}</span>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => onLanguageChange(language === 'es' ? 'en' : 'es')}
-                    className="border-gray-700 text-gray-300 hover:text-blue-400 hover:border-blue-400"
+                    className="border-border text-foreground hover:text-blue-400 hover:border-blue-400"
                   >
                     <Globe className="w-4 h-4 mr-2" />
                     {language.toUpperCase()}

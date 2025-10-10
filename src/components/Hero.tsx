@@ -61,7 +61,7 @@ export function Hero({ language }: HeroProps) {
   ];
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden pt-24 lg:pt-0">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-card to-background text-foreground relative overflow-hidden pt-24 lg:pt-0 transition-colors duration-300">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <motion.div 
@@ -149,23 +149,23 @@ export function Hero({ language }: HeroProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl text-white leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight">
                 {content[language].greeting}
               </h1>
               <div className="text-4xl md:text-5xl lg:text-6xl leading-tight">
-                <span className="text-white">{content[language].introduction} </span>
+                <span className="text-foreground">{content[language].introduction} </span>
                 <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                   {content[language].name}
                 </span>
-                <span className="text-white">,</span>
+                <span className="text-foreground">,</span>
               </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl text-gray-300 leading-tight">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground leading-tight">
                 {content[language].profession}
               </h2>
             </motion.div>
             
             <motion.p
-              className="text-lg md:text-xl text-gray-400 mb-8 max-w-xl leading-relaxed"
+              className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}

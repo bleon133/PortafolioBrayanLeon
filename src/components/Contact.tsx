@@ -123,7 +123,7 @@ export function Contact({ language }: ContactProps) {
   ];
 
   return (
-    <section id="contact" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-gray-800 text-white relative overflow-hidden">
+    <section id="contact" className="py-20 lg:min-h-screen lg:flex lg:items-center bg-card text-card-foreground relative overflow-hidden transition-colors duration-300">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         {/* Communication waves */}
@@ -261,7 +261,7 @@ export function Contact({ language }: ContactProps) {
           <h2 className="text-4xl lg:text-5xl mb-4 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             {content[language].title}
           </h2>
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-muted-foreground">
             {content[language].subtitle}
           </p>
         </motion.div>
@@ -274,7 +274,7 @@ export function Contact({ language }: ContactProps) {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Card className="bg-gray-900/50 border-gray-700/50 backdrop-blur-sm">
+            <Card className="bg-background/50 border-border backdrop-blur-sm">
               <CardHeader>
                 <h3 className="text-2xl text-blue-400">
                   {content[language].form.send}
@@ -284,7 +284,7 @@ export function Contact({ language }: ContactProps) {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <Label htmlFor="name" className="text-gray-200">
+                    <Label htmlFor="name" className="text-foreground">
                       {content[language].form.name}
                     </Label>
                     <Input
@@ -292,13 +292,13 @@ export function Contact({ language }: ContactProps) {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="mt-2 bg-gray-800/50 border-gray-600 text-white focus:border-blue-500"
+                      className="mt-2 bg-input-background border-input text-foreground focus:border-blue-500"
                       required
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="email" className="text-gray-200">
+                    <Label htmlFor="email" className="text-foreground">
                       {content[language].form.email}
                     </Label>
                     <Input
@@ -307,13 +307,13 @@ export function Contact({ language }: ContactProps) {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="mt-2 bg-gray-800/50 border-gray-600 text-white focus:border-blue-500"
+                      className="mt-2 bg-input-background border-input text-foreground focus:border-blue-500"
                       required
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="message" className="text-gray-200">
+                    <Label htmlFor="message" className="text-foreground">
                       {content[language].form.message}
                     </Label>
                     <Textarea
@@ -322,7 +322,7 @@ export function Contact({ language }: ContactProps) {
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="mt-2 bg-gray-800/50 border-gray-600 text-white focus:border-blue-500 resize-none"
+                      className="mt-2 bg-input-background border-input text-foreground focus:border-blue-500 resize-none"
                       required
                     />
                   </div>
@@ -369,7 +369,7 @@ export function Contact({ language }: ContactProps) {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex items-center gap-4 p-4 bg-gray-900/50 rounded-lg border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 ${social.color}`}
+                    className={`flex items-center gap-4 p-4 bg-background/50 rounded-lg border border-border hover:border-blue-500/50 transition-all duration-300 ${social.color}`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -380,11 +380,11 @@ export function Contact({ language }: ContactProps) {
               </div>
             </div>
 
-            <div className="bg-gray-900/30 p-6 rounded-lg border border-gray-700/30">
+            <div className="bg-background/30 p-6 rounded-lg border border-border">
               <h4 className="text-lg text-cyan-400 mb-2">
                 {language === 'es' ? '¿Listo para colaborar?' : 'Ready to collaborate?'}
               </h4>
-              <p className="text-gray-300">
+              <p className="text-muted-foreground">
                 {language === 'es' 
                   ? 'Siempre estoy interesado en nuevos proyectos y oportunidades. No dudes en contactarme.'
                   : "I'm always interested in new projects and opportunities. Feel free to reach out."
